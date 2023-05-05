@@ -1,33 +1,55 @@
-import { ContactList } from './ContactList/ContactList';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts, selectFilter } from 'redux/selectors';
-import { getFilteredContacts } from './FilteredContacts';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts } from '../redux/operations';
+import { Routes, Route } from 'react-router-dom';
+import { ContactsPage } from 'pages/Contacts/Contacts';
+import { HomePage } from 'pages/Home/Home';
+import { LoginPage } from 'pages/Login/Login';
+import { NotFoundPage } from 'pages/NotFound/NotFound';
+import { RegisterPage } from 'pages/Register/Register';
+import { Layout } from './Layout/Layout';
+import { refreshThunk } from '../redux/auth/authOperations';
+import { PublicRoute } from 'HOC/PublicRoute';
+import { PrivateRoute } from 'HOC/PrivateRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
 
-  const { items: contacts } = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshThunk());
   }, [dispatch]);
 
   return (
-    <>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter value={filter} />
-      {contacts.length ? (
-        <ContactList contacts={getFilteredContacts(contacts, filter)} />
-      ) : (
-        <p style={{ paddingLeft: '40px' }}>Please add at least 1 contact</p>
-      )}
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute>
+              <div style={{ paddingLeft: '40px' }}>
+                <ContactsPage />
+              </div>
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 };

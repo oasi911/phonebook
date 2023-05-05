@@ -10,16 +10,19 @@ import { addContact } from '../../redux/operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
+
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.target;
 
-    dispatch(
-      addContact({
-        name: form.elements.name.value,
-        phone: form.elements.number.value,
-      })
-    );
+    const form = e.target;
+    if (true) {
+      dispatch(
+        addContact({
+          name: form.elements.name.value,
+          number: form.elements.number.value,
+        })
+      );
+    }
 
     form.reset();
   };
