@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from '../../redux/contacts/operations';
 import { selectContacts } from 'redux/selectors';
 
-export const ContactElement = ({ name, phone, id }) => {
+export const ContactElement = ({ name, number, id }) => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector(selectContacts);
   const handleDelete = () => dispatch(deleteContact(id));
@@ -12,7 +12,7 @@ export const ContactElement = ({ name, phone, id }) => {
   return (
     <List>
       <p>
-        {name}: {phone}
+        {name}: {number}
       </p>
       <DeleteBtn onClick={handleDelete} disabled={isLoading}>
         Delete
@@ -23,7 +23,7 @@ export const ContactElement = ({ name, phone, id }) => {
 
 ContactElement.propTypes = {
   name: PropTypes.string,
-  phone: PropTypes.string,
+  number: PropTypes.string,
   id: PropTypes.string,
   onClickDeleteBtn: PropTypes.func,
 };
