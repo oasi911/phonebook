@@ -12,8 +12,8 @@ export const ContactList = ({ contacts }) => {
       {' '}
       {isLoading && !error && <p>Loading contacts...</p>}
       <ElementsList>
-        {contacts.map(({ name, phone, id }) => (
-          <ContactElement name={name} phone={phone} key={id} id={id} />
+        {contacts.map(({ name, number, id }) => (
+          <ContactElement name={name} number={number} key={id} id={id} />
         ))}
       </ElementsList>
     </>

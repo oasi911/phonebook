@@ -4,7 +4,7 @@ import { ContactList } from '../../components/ContactList/ContactList';
 import { Filter } from '../../components/Filter/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/selectors';
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts } from 'redux/contacts/operations';
 import { getFilteredContacts } from 'components/FilteredContacts';
 
 export const ContactsPage = () => {

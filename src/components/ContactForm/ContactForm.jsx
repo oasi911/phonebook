@@ -6,7 +6,7 @@ import {
   Paragraph,
 } from './ContactForm.styler';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/operations';
+import { addContact } from '../../redux/contacts/operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
