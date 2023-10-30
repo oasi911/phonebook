@@ -32,7 +32,7 @@ const authSlice = createSlice({
       })
       .addCase(logOutThunk.fulfilled, (state, { payload }) => {
         state.user = '';
-        state.token = '';
+        state.token = null;
         state.isOnline = false;
       })
       .addCase(refreshThunk.fulfilled, (state, { payload }) => {
